@@ -1,3 +1,4 @@
+import ReadBtn from "@/context/bookDetails/ReadBtn";
 import { Ibook } from "@/types/books.type";
 import Image from "next/image";
 import Link from "next/link";
@@ -157,9 +158,7 @@ const BookDetailPage = async ({ params }: IbookDetailPageProps) => {
 
               {/* Actions */}
               <div className="mt-6 flex flex-wrap gap-3">
-                <button className="btn btn-sm rounded-full bg-emerald-800 px-6 text-white hover:bg-white hover:text-emerald-800 hover:border-emerald-800">
-                  Read
-                </button>
+                <ReadBtn book={book} />
 
                 <button className="btn btn-sm rounded-full border-emerald-800 px-6 text-emerald-800 hover:bg-emerald-800 hover:text-white">
                   Wishlist
