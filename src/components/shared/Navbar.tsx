@@ -46,7 +46,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-1">
           <Image src={logo} alt="Book Vibe Logo" />
-          <Link href="#" className="btn btn-ghost font-semibold text-lg">
+          <Link href="/" className="btn btn-ghost font-semibold text-lg">
             Book Vibe
           </Link>
         </div>

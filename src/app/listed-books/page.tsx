@@ -1,12 +1,45 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { BookContext } from "@/context/BookContext";
 import { Ibook } from "@/types/books.type";
 import ListedBookCard from "@/components/shared/ListedBookCard";
 
+type SortOption = "default" | "rating" | "pages" | "year";
+
 const ListedBook = () => {
-  const { readBooks, wishList } = useContext(BookContext);
+  const context = useContext(BookContext);
+
+  if (!context) {
+    throw new Error("Component must be used within BookProvider");
+  }
+
+  const { readBooks, wishList } = context;
+
+  const [sortBy, setSortBy] = useState<SortOption>("default");
+
+  const sortBooks = (books: Ibook[]) => {
+    const sortedBooks = [...books];
+
+    switch (sortBy) {
+      case "rating":
+        return sortedBooks.sort((a, b) => b.rating - a.rating);
+
+      case "pages":
+        return sortedBooks.sort((a, b) => b.totalPages - a.totalPages);
+
+      case "year":
+        return sortedBooks.sort(
+          (a, b) => b.yearOfPublishing - a.yearOfPublishing,
+        );
+
+      default:
+        return sortedBooks;
+    }
+  };
+
+  const sortedReadBooks = sortBooks(readBooks);
+  const sortedWishList = sortBooks(wishList);
 
   return (
     <main className="min-h-screen bg-base-200 px-4 py-8 sm:py-10">
@@ -27,6 +60,28 @@ const ListedBook = () => {
           </p>
         </div>
 
+        {/* Sort By */}
+        <div className="mb-7 flex flex-col items-center justify-center gap-2">
+          <label
+            htmlFor="book-sort"
+            className="text-sm font-semibold text-base-content/70"
+          >
+            Sort your collection
+          </label>
+
+          <select
+            id="book-sort"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortOption)}
+            className="select select-success w-full max-w-xs rounded-xl border-base-300 bg-base-100 font-medium shadow-sm"
+          >
+            <option value="default">Sort By</option>
+            <option value="rating">Rating</option>
+            <option value="pages">Number of Pages</option>
+            <option value="year">Publication Year</option>
+          </select>
+        </div>
+
         {/* Tabs */}
         <div className="rounded-2xl border border-base-300 bg-base-100 p-3 shadow-sm sm:p-5">
           <div className="tabs tabs-border w-full">
@@ -34,15 +89,14 @@ const ListedBook = () => {
             <input
               type="radio"
               name="my_tabs_2"
-              className="tab text-sm font-semibold [--tab-border-color:white]
-            checked:[--tab-border-color:var(--color-emerald-700)]"
+              className="tab text-sm font-semibold [--tab-border-color:white] checked:[--tab-border-color:var(--color-emerald-700)]"
               aria-label={`Read Books (${readBooks.length})`}
             />
 
             <div className="tab-content border-base-300 bg-base-100 pt-6">
-              {readBooks.length > 0 ? (
+              {sortedReadBooks.length > 0 ? (
                 <div className="flex flex-col gap-4">
-                  {readBooks.map((book: Ibook) => (
+                  {sortedReadBooks.map((book: Ibook) => (
                     <ListedBookCard key={book.bookId} book={book} />
                   ))}
                 </div>
@@ -61,17 +115,15 @@ const ListedBook = () => {
             <input
               type="radio"
               name="my_tabs_2"
-              className="tab text-sm font-semibold
-            [--tab-border-color:white]
-            checked:[--tab-border-color:var(--color-emerald-700)]"
+              className="tab text-sm font-semibold [--tab-border-color:white] checked:[--tab-border-color:var(--color-emerald-700)]"
               aria-label={`Wishlist (${wishList.length})`}
               defaultChecked
             />
 
             <div className="tab-content border-base-300 bg-base-100 pt-6">
-              {wishList.length > 0 ? (
+              {sortedWishList.length > 0 ? (
                 <div className="flex flex-col gap-4">
-                  {wishList.map((book: Ibook) => (
+                  {sortedWishList.map((book: Ibook) => (
                     <ListedBookCard key={book.bookId} book={book} />
                   ))}
                 </div>
