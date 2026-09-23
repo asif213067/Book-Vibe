@@ -2,6 +2,7 @@
 import { Ibook } from "@/types/books.type";
 import React, { useContext } from "react";
 import { BookContext } from "../../context/BookContext";
+import { toast } from "react-toastify";
 
 const ReadBtn = ({book}: {book: Ibook}) => {
 
@@ -9,7 +10,7 @@ const ReadBtn = ({book}: {book: Ibook}) => {
 
   const handleReadBooks = () => {
     setReadBooks((prevReadBooks: Ibook[]) => [...prevReadBooks, book]);
-    alert(`book readed ${book.bookName}`)
+    toast.success(`"${book.bookName}" marked as read!`)
   }
 
   return (
