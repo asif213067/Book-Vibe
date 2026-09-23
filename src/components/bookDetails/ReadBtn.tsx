@@ -1,7 +1,7 @@
 'use client'
 import { Ibook } from "@/types/books.type";
 import React, { useContext } from "react";
-import { BookContext } from "../BookContext";
+import { BookContext } from "../../context/BookContext";
 
 const ReadBtn = ({book}: {book: Ibook}) => {
 
