@@ -10,13 +10,19 @@ interface IbookDetailPageProps {
 }
 
 const getBooks = async (): Promise<Ibook[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SEVER_BASE_URL}/booksData.json`);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`
+    );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch books");
+    const books = await res.json();
+
+    return books;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+
+    return [];
   }
-
-  return res.json();
 };
 
 const BookDetailPage = async ({ params }: IbookDetailPageProps) => {
