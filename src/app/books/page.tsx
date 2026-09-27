@@ -8,6 +8,7 @@ const getBooks = async () => {
 
   if (!res.ok) {
     throw new Error("Failed to fetch books");
+    return [];
   }
 
   return res.json();
