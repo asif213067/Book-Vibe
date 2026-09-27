@@ -3,15 +3,20 @@ import { Ibook } from "@/types/books.type";
 import BookCard from "@/components/shared/BookCard";
 
 
-const getBooks = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
+const getBooks = async (): Promise<Ibook[]> => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`
+    );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch books");
+    const books = await res.json();
+
+    return books;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+
     return [];
   }
-
-  return res.json();
 };
 
 const Books = async () => {
