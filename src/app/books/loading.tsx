@@ -19,7 +19,7 @@ const BooksLoading = () => {
         </h2>
 
         <p className="mt-2 text-sm text-base-content/60">
-          Just a moment, your next great read is on its way...
+          Just a moment, your next great read is on its way.....
         </p>
       </div>
 
