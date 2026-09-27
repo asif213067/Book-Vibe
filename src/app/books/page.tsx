@@ -4,7 +4,7 @@ import BookCard from "@/components/shared/BookCard";
 
 
 const getBooks = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SEVER_BASE_URL}/booksData.json`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch books");
