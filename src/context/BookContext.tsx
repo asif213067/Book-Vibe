@@ -1,12 +1,14 @@
 "use client";
+
 import { BookContextType } from "@/types/bookContextType";
 import { Ibook } from "@/types/books.type";
+
 import React, {
   createContext,
   ReactNode,
+  useContext,
   useState,
 } from "react";
-
 
 export const BookContext = createContext<BookContextType | null>(null);
 
@@ -22,8 +24,21 @@ const BookProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <BookContext.Provider value={shareData}>{children}</BookContext.Provider>
+    <BookContext.Provider value={shareData}>
+      {children}
+    </BookContext.Provider>
   );
+};
+
+// Custom hook
+export const useBookContext = () => {
+  const context = useContext(BookContext);
+
+  if (!context) {
+    throw new Error("useBookContext must be used within BookProvider");
+  }
+
+  return context;
 };
 
 export default BookProvider;

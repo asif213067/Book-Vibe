@@ -1,8 +1,8 @@
 "use client";
 
-import { BookContext } from "@/context/BookContext";
+import { useBookContext } from "@/context/BookContext";
 import { Ibook } from "@/types/books.type";
-import React, { useContext } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -59,7 +59,7 @@ const CustomColorLabel = (props: LabelProps) => {
 };
 
 const ReadBooksPage = () => {
-  const { readBooks } = useContext(BookContext);
+  const { readBooks } = useBookContext();
 
   const data = readBooks.map((book: Ibook, idx: number) => {
     return {

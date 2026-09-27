@@ -1,12 +1,12 @@
 'use client'
 import { Ibook } from "@/types/books.type";
-import React, { useContext } from "react";
-import { BookContext } from "../../context/BookContext";
+import React from "react";
+import { useBookContext } from "../../context/BookContext";
 import { toast } from "react-toastify";
 
 const ReadBtn = ({book}: {book: Ibook}) => {
 
-  const {readBooks, setReadBooks} = useContext(BookContext);
+  const {setReadBooks} = useBookContext();
 
   const handleReadBooks = () => {
     setReadBooks((prevReadBooks: Ibook[]) => [...prevReadBooks, book]);

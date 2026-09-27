@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useContext, useState } from "react";
-import { BookContext } from "@/context/BookContext";
+import React, { useState } from "react";
+import { useBookContext } from "@/context/BookContext";
 import { Ibook } from "@/types/books.type";
 import ListedBookCard from "@/components/shared/ListedBookCard";
 
 type SortOption = "default" | "rating" | "pages" | "year";
 
 const ListedBook = () => {
-  const context = useContext(BookContext);
-
-  if (!context) {
-    throw new Error("Component must be used within BookProvider");
-  }
+  const context = useBookContext();
 
   const { readBooks, wishList } = context;
 
